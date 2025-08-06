@@ -11,10 +11,10 @@ public class Access {
 	@Id
 	private String contact;
 	
-	private String category;
+	private int category;
 	
 	
-	public Access(String contact, String category) {
+	public Access(String contact, int category) {
 		super();
 		this.contact = contact;
 		this.category = category;
@@ -36,12 +36,12 @@ public class Access {
 	}
 
 
-	public String getCategory() {
+	public int getCategory() {
 		return category;
 	}
 
 
-	public void setCategory(String category) {
+	public void setCategory(int category) {
 		this.category = category;
 	}
 

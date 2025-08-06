@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import com.jpa.smart.dao.SmartAccessRepository;
 import com.jpa.smart.dao.SmartRepository;
 import com.jpa.smart.entities.OtherInfo;
 import com.jpa.smart.entities.UserInfo;
+import com.jpa.smart.entities.Access;
 
 import jakarta.transaction.Transactional;
 
@@ -23,6 +25,9 @@ public class SmartContactServices {
 	
 	@Autowired
 	private SmartRepository smartRepository;
+	
+	@Autowired
+	private SmartAccessRepository smartAccessRepository;
 	
 	static OtherInfo inp1 = new OtherInfo("meripyaaribubu@bubuli.com","hobbies: showing my adaayn");
 	static OtherInfo inp2 = new OtherInfo("meripyaaribubu@bubuli.com","education: b-tech");
@@ -78,6 +83,20 @@ public class SmartContactServices {
 		System.out.println("Record(s) are successfully fetched by contact");
 		return smartRepository.findById(contact);
 			
+	}
+	
+	public Optional<UserInfo> accessUserDataByCont(String userContact, String otherContact) {
+		Access access =smartAccessRepository.findByContact(userContact);
+		Access accOth =smartAccessRepository.findByContact(otherContact);
+		if(access.getCategory() < accOth.getCategory()) {
+			System.out.println("Record fetched successfully");
+			return smartRepository.findById(otherContact);
+		}
+		else {
+			System.out.println("User doesn't have permission to access this record");
+			return Optional.empty();
+		}
+		 
 	}
 	
 	

@@ -25,6 +25,8 @@ public class SmartController {
 	@Autowired
 	private SmartContactServices smartContactServices;
 	
+	
+	
 	@GetMapping("/fetch")
 	public List<UserInfo> getUserData() {
 		
@@ -48,9 +50,9 @@ public class SmartController {
 	}
 	
 	@GetMapping("/access/{contact1}/{contact2}")
-	public void checkAccess(@PathVariable("contact1") String userContact, @PathVariable("conatct2") String othercont) {
+	public Optional<UserInfo> checkAccess(@PathVariable("contact1") String userContact, @PathVariable("conatct2") String othercont) {
 		
-		
+		return smartContactServices.accessUserDataByCont(userContact, othercont);
 	}
 	
 	
